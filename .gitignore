@@ -1,0 +1,44 @@
+# gradle
+
+.gradle/
+build/
+out/
+classes/
+
+# eclipse
+
+*.launch
+
+# idea
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# vscode
+
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# macos
+
+*.DS_Store
+
+# runtime folders
+
+run/
+run-data/
+runs/
+
+# forge generated resources cache
+/src/generated/resources/.cache/
+
+# markdown notes (allow only selected)
+*.md
+!README.md
+!CHANGELOG.md
+!metadata/changelogs/*.md

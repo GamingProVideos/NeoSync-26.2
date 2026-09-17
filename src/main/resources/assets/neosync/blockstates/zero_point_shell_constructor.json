@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "neosync:block/zero_point_shell_constructor"
+    }
+  }
+}

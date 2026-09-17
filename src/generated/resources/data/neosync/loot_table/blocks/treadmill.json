@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "neosync:treadmill",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "treadmill_part": "back"
+              }
+            }
+          ],
+          "name": "neosync:treadmill"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "neosync:blocks/treadmill"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": "minecraft:gray_concrete",
+    "G": "minecraft:glass_pane",
+    "I": "minecraft:iron_block",
+    "P": "minecraft:heavy_weighted_pressure_plate",
+    "S": "neosync:sync_core"
+  },
+  "pattern": [
+    "CSC",
+    "GIG",
+    "CPC"
+  ],
+  "result": {
+    "id": "neosync:shell_storage"
+  }
+}

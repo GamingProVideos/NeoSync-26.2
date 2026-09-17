@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "neosync:item/manual_shell_storage",
+    "model": {
+      "type": "neosync:shell_storage",
+      "texture": "neosync:textures/block/manual_shell_storage.png"
+    }
+  }
+}

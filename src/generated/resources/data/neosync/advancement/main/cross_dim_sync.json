@@ -1,0 +1,26 @@
+{
+  "parent": "neosync:main/first_sync",
+  "criteria": {
+    "synced_cross_dim": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neosync.cross_dim_sync.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "neosync:sync_core"
+    },
+    "title": {
+      "translate": "advancements.neosync.cross_dim_sync.title"
+    }
+  },
+  "requirements": [
+    [
+      "synced_cross_dim"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

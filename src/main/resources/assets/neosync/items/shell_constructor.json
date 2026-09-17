@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "neosync:item/shell_constructor",
+    "model": {
+      "type": "neosync:shell_constructor",
+      "texture": "neosync:textures/block/shell_constructor.png"
+    }
+  }
+}

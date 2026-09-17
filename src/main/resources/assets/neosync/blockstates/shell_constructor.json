@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "neosync:block/shell_constructor"
+    }
+  }
+}

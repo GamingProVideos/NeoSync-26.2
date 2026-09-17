@@ -1,0 +1,57 @@
+{
+  "parent": "neosync:main/root",
+  "criteria": {
+    "placed_manual_storage": {
+      "conditions": {
+        "location": [
+          {
+            "block": "neosync:manual_shell_storage",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "placed_storage": {
+      "conditions": {
+        "location": [
+          {
+            "block": "neosync:shell_storage",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "placed_zero_point_storage": {
+      "conditions": {
+        "location": [
+          {
+            "block": "neosync:zero_point_shell_storage",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neosync.place_storage.description"
+    },
+    "icon": {
+      "id": "neosync:shell_storage"
+    },
+    "title": {
+      "translate": "advancements.neosync.place_storage.title"
+    }
+  },
+  "requirements": [
+    [
+      "placed_storage",
+      "placed_zero_point_storage",
+      "placed_manual_storage"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

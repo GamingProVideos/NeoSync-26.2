@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sync_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neosync:sync_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neosync:shell_constructor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sync_core"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neosync:shell_constructor"
+    ]
+  }
+}

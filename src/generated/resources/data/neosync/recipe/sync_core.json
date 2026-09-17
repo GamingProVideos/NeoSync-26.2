@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:ender_pearl",
+    "D": "minecraft:daylight_detector",
+    "E": "minecraft:emerald",
+    "O": "minecraft:lapis_block",
+    "Q": "minecraft:quartz",
+    "R": "minecraft:redstone_block"
+  },
+  "pattern": [
+    "DOD",
+    "Q#Q",
+    "ERE"
+  ],
+  "result": {
+    "id": "neosync:sync_core"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "neosync:main/root",
+  "criteria": {
+    "synced": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neosync.first_sync.description"
+    },
+    "icon": {
+      "id": "neosync:shell_storage"
+    },
+    "title": {
+      "translate": "advancements.neosync.first_sync.title"
+    }
+  },
+  "requirements": [
+    [
+      "synced"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

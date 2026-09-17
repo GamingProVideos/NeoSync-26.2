@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "neosync:item/treadmill",
+    "model": {
+      "type": "neosync:treadmill",
+      "texture": "neosync:textures/block/treadmill.png"
+    }
+  }
+}

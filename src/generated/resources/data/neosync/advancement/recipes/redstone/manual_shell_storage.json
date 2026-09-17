@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_shell_storage": {
+      "conditions": {
+        "items": [
+          {
+            "items": "neosync:shell_storage"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "neosync:manual_shell_storage"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_shell_storage"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "neosync:manual_shell_storage"
+    ]
+  }
+}

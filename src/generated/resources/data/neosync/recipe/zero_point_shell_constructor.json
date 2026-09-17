@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "neosync:shell_constructor",
+    "minecraft:nether_star"
+  ],
+  "result": {
+    "id": "neosync:zero_point_shell_constructor"
+  }
+}

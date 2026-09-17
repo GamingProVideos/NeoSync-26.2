@@ -1,0 +1,33 @@
+{
+  "parent": "neosync:main/root",
+  "criteria": {
+    "placed_treadmill": {
+      "conditions": {
+        "location": [
+          {
+            "block": "neosync:treadmill",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neosync.place_treadmill.description"
+    },
+    "icon": {
+      "id": "neosync:treadmill"
+    },
+    "title": {
+      "translate": "advancements.neosync.place_treadmill.title"
+    }
+  },
+  "requirements": [
+    [
+      "placed_treadmill"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

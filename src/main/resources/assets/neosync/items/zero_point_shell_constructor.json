@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "neosync:item/zero_point_shell_constructor",
+    "model": {
+      "type": "neosync:shell_constructor",
+      "texture": "neosync:textures/block/zero_point_shell_constructor.png"
+    }
+  }
+}

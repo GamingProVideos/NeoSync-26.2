@@ -1,0 +1,192 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.147'
+    id 'me.modmuss50.mod-publish-plugin' version '1.1.0'
+}
+
+def isSnapshot = System.getenv('SNAPSHOT') == 'true'
+version = "${project.minecraft_version}-${project.mod_version}${isSnapshot ? '-SNAPSHOT' : ''}"
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+}
+
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
+repositories {
+    mavenLocal()
+    maven {
+        name = 'NeoForged'
+        url = 'https://maven.neoforged.net/releases'
+    }
+    maven {
+        url = 'https://cursemaven.com'
+        content { includeGroup 'curse.maven' }
+    }
+    maven {
+        name = 'BlameJared (JEI)'
+        url = 'https://maven.blamejared.com/'
+    }
+    maven {
+        name = 'Curios'
+        url = 'https://maven.theillusivec4.top/'
+        content { includeGroup 'top.theillusivec4.curios' }
+    }
+    maven {
+        name = 'Modrinth'
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
+    mavenCentral()
+}
+
+neoForge {
+    version = project.neoforge_version
+
+    runs {
+        configureEach {
+            logLevel = org.slf4j.event.Level.INFO
+        }
+        client {
+            client()
+        }
+        server {
+            server()
+        }
+        clientData {
+            clientData()
+            programArguments.addAll '--mod', project.mod_id,
+                '--all',
+                '--output', file('src/generated/resources/').getAbsolutePath(),
+                '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+    }
+
+    mods {
+        "${project.mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+dependencies {
+    compileOnly "io.github.llamalad7:mixinextras-common:${project.mixinextras_version}"
+    annotationProcessor "io.github.llamalad7:mixinextras-common:${project.mixinextras_version}"
+
+    // JEI — compile against API only, runtime via localRuntime
+    compileOnly "mezz.jei:jei-${project.minecraft_version}-common-api:${project.jei_version}"
+    compileOnly "mezz.jei:jei-${project.minecraft_version}-neoforge-api:${project.jei_version}"
+    localRuntime "mezz.jei:jei-${project.minecraft_version}-neoforge:${project.jei_version}"
+
+    // Jade — single jar contains both API and impl
+    compileOnly "maven.modrinth:jade:${project.jade_version}"
+    localRuntime "maven.modrinth:jade:${project.jade_version}"
+
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${project.curios_version}:api"
+    localRuntime "top.theillusivec4.curios:curios-neoforge:${project.curios_version}"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 25
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand 'version': project.version
+    }
+}
+
+java {
+    withSourcesJar()
+}
+
+jar {
+    manifest {
+        attributes([
+                'Specification-Title'     : project.mod_id,
+                'Specification-Vendor'    : project.mod_author,
+                'Specification-Version'   : '1',
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : version,
+                'Implementation-Vendor'   : project.mod_author,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = 'BreakInBlocks'
+            url = isSnapshot
+                    ? 'https://maven.breakinblocks.com/snapshots'
+                    : 'https://maven.breakinblocks.com/releases'
+            credentials {
+                username = System.getenv('MAVEN_USER') ?: ''
+                password = System.getenv('MAVEN_TOKEN') ?: ''
+            }
+        }
+    }
+}
+
+// Mod publishing to CurseForge and Modrinth (GitHub releases handled by CI)
+publishMods {
+    file = jar.archiveFile
+    def changelogFile = project.file('CHANGELOG.md')
+    def notes = []
+    def collecting = false
+    if (changelogFile.exists()) {
+        changelogFile.eachLine { line ->
+            if (line.startsWith('## ')) {
+                collecting = line.substring(3).trim() == project.mod_version
+            } else if (collecting) {
+                notes << line
+            }
+        }
+    }
+    changelog = notes ? notes.join(System.lineSeparator()).trim() : "Release ${project.version}"
+    type = isSnapshot ? BETA : STABLE
+    modLoaders.add('neoforge')
+
+    curseforge {
+        projectId = project.curseforge_project_id
+        projectSlug = project.mod_id
+        accessToken = providers.environmentVariable('CURSEFORGE_TOKEN')
+        minecraftVersions.add(project.minecraft_version)
+        clientRequired = true
+        serverRequired = true
+        optional('jei', 'jade', 'curios')
+    }
+
+    modrinth {
+        projectId = project.modrinth_project_id
+        accessToken = providers.environmentVariable('MODRINTH_TOKEN')
+        minecraftVersions.add(project.minecraft_version)
+        optional('jei', 'jade', 'curios')
+    }
+}
+
+// Include Maven publish when running publishMods
+tasks.named('publishMods') {
+    def mavenUser = providers.environmentVariable('MAVEN_USER')
+    if (mavenUser.isPresent()) {
+        dependsOn 'publishMavenJavaPublicationToBreakInBlocksRepository'
+    }
+}

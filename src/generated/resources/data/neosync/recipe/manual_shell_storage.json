@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "neosync:shell_storage",
+    "minecraft:lever"
+  ],
+  "result": {
+    "id": "neosync:manual_shell_storage"
+  }
+}

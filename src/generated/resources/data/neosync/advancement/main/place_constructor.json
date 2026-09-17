@@ -1,0 +1,45 @@
+{
+  "parent": "neosync:main/root",
+  "criteria": {
+    "placed_constructor": {
+      "conditions": {
+        "location": [
+          {
+            "block": "neosync:shell_constructor",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    },
+    "placed_zero_point_constructor": {
+      "conditions": {
+        "location": [
+          {
+            "block": "neosync:zero_point_shell_constructor",
+            "condition": "minecraft:block_state_property"
+          }
+        ]
+      },
+      "trigger": "minecraft:placed_block"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.neosync.place_constructor.description"
+    },
+    "icon": {
+      "id": "neosync:shell_constructor"
+    },
+    "title": {
+      "translate": "advancements.neosync.place_constructor.title"
+    }
+  },
+  "requirements": [
+    [
+      "placed_constructor",
+      "placed_zero_point_constructor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
