@@ -1,123 +1,520 @@
 ![Logo](media/logo.png)
 
-# NeoSync
+# NeoSync Community Port
 
 [![GitHub license](https://img.shields.io/github/license/pawjwp/sync-fabric.svg?cacheSeconds=36000)](LICENSE)
 
-> One mind. Many bodies.
+> **One mind. Many bodies.**
 
-NeoSync provides *shells*; clones of the player, each with their own inventory, experience, and gamemode, that you can transfer your consciousness into. This is a **NeoForge 1.21.1** port of the Fabric reimplementation by [Kir_Antipov](https://github.com/Kir-Antipov/sync-fabric), of the original [Sync](https://github.com/iChun/Sync) mod by [iChun](https://github.com/iChun).
+NeoSync provides *shells* — clones of the player, each with their own inventory, experience, and gamemode, that you can transfer your consciousness into.
 
-----
+This repository contains an **unofficial community-maintained NeoForge port for Minecraft 26.2**.
+
+Development of a **Minecraft 26.3 / NeoForge 26.3 version is currently in progress**.
+
+The project is based on the NeoForge port by **BreakinBlocks**, which itself ports the Fabric reimplementation by [Kir_Antipov](https://github.com/Kir-Antipov/sync-fabric) of the original [Sync](https://github.com/iChun/Sync) mod by [iChun](https://github.com/iChun).
+
+This community port is not an official release from the original NeoSync developers.
+
+---
+
+## Current Version
+
+* **Minecraft:** 26.2
+* **Mod Loader:** NeoForge 26.2
+* **Java:** 25
+* **Side:** Client + Server
+
+### Minecraft 26.3
+
+A **Minecraft 26.3 / NeoForge 26.3 port is currently being developed**.
+
+The 26.3 branch should be considered **work in progress / experimental** until the migration and testing process is complete.
+
+---
 
 ## How to play
 
 1. Craft a **shell constructor** and place it.
+
 2. Right-click it with an empty hand to provide a genetic sample.
+
    > ⚠️ With default config this will **kill you**. 20 HP (40 in hardcore). Eat a golden apple for more health, hold a totem of undying, or enable `warnPlayerInsteadOfKilling` in the config.
+
 3. Power the constructor: place a **treadmill** touching any side of it, lure a **pig** or **wolf** onto the front block, and piggawatts flow.
 
    ![Working shell constructor](media/shell_constructor-showcase.png)
 
    > A comparator on the constructor tracks build progress, which is also displayed in Jade.
 
-4. Once the shell is built, craft a **shell storage**, place it, and supply redstone power (or FE from any tech mod).
+4. Once the shell is built, craft a **shell storage**, place it, and supply redstone power or FE from any compatible tech mod.
+
 5. When the storage doors open, walk in. A radial menu appears with your shells:
 
    ![Menu example](media/menu-showcase.png)
 
-6. Pick a shell. Sync.
+6. Pick a shell.
+
+7. **Sync.**
+
+---
+
+## Features
+
+* Create and grow additional player Shells
+* Transfer between multiple bodies
+* Cross-dimensional syncing
+* Separate inventory for each Shell
+* Separate experience for each Shell
+* Separate gamemode for each Shell
+* Radial Shell selection menu
+* Automatic syncing after death
+* Shell Constructor
+* Shell Storage
+* Treadmill energy generation
+* Forge Energy support
+* Redstone power support
+* Dyeable Shell Storages
+* Comparator output
+* Shell Storage automation
+* Configurable death/sync priority
+* Multiplayer support
+* Custom dimension support
+* JEI integration
+* Jade integration
+* Administrative Shell commands
+* Respawn anchors
+* Ghost Shell repair tools
+
+---
 
 ## Notes
 
-- Right-click a shell storage with **dye** to color-code it.
-- Syncing works cross-dimensional (custom dimensions supported).
-- If you die in a shell, you auto-sync back to your original body, or to a random remaining shell if the original is gone. Shell deaths **don't** count towards your death counter. The dead shell's inventory drops at its location — grave mods like Simple Tombs will capture it (see [Mod integration](#mod-integration) for caveats).
-- Hoppers connected to a shell storage can equip or unequip armor/tools on the stored shell.
-- Shell storage needs continuous power to keep its shell alive (configurable); accepts redstone and/or FE.
-- Comparator output from a shell container reports either *build progress* or *inventory fullness*. Right-click the container with a **wrench** (stick by default) to toggle.
-- Shell containers drop themselves when mined — any pickaxe works, no silk touch needed.
+* Right-click a shell storage with **dye** to color-code it.
+* Syncing works cross-dimensional and custom dimensions are supported.
+* If you die in a shell, you auto-sync back to your original body, or to a random remaining shell if the original is gone.
+* Shell deaths **don't** count towards your death counter.
+* The dead shell's inventory drops at its location.
+* Grave mods such as Simple Tombs can capture dropped inventories. See [Mod integration](#mod-integration) for caveats.
+* Hoppers connected to a shell storage can equip or unequip armor/tools on the stored shell.
+* Shell storage needs continuous power to keep its shell alive, depending on configuration.
+* Shell storage accepts redstone and/or Forge Energy.
+* Comparator output from a shell container reports either *build progress* or *inventory fullness*.
+* Right-click the container with a **wrench** (`minecraft:stick` by default) to toggle comparator modes.
+* Shell containers drop themselves when mined.
+* Any pickaxe works.
+* Silk Touch is not required.
+
+---
 
 ## Config
 
-Config file: `config/neosync-common.toml`. Key options:
+Config file:
 
-| Key | Default | Effect |
-| --- | --- | --- |
-| `enableInstantShellConstruction` | `false` | Instant shell builds in creative |
-| `warnPlayerInsteadOfKilling` | `false` | Don't kill low-HP players on fingerstick |
-| `fingerstickDamage` / `hardcoreFingerstickDamage` | `20` / `40` | HP consumed per shell |
-| `shellConstructorCapacity` | `256000` | FE needed for a full shell |
-| `shellStorageCapacity` / `shellStorageConsumption` | `320` / `16` | FE buffer + per-tick drain keeping a shell alive |
-| `shellStorageAcceptsRedstone` | `true` | Accept raw redstone as power |
-| `shellStorageMaxUnpoweredLifespan` | `20` | Ticks a storage keeps its shell alive without power |
-| `energyMap` | chicken=2, pig=16, player=20, wolf=22, villager=25, creeper=80, enderman=160 | FE/tick per entity on a treadmill |
-| `syncPriority` | `NATURAL` | Which shell to pick on death. Values: `NATURAL`, `NEAREST`, or any dye color |
-| `wrench` | `minecraft:stick` | Item that cycles a container's comparator output type |
+`config/neosync-common.toml`
 
-## Commands
+Key options:
 
-All commands are listed under `/neosync`. All of it needs gamemaster permission; `anchor` and `ghostshells` are also available to the host in single player.
+| Key                                                | Default                                                                      | Effect                                                                       |
+| -------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `enableInstantShellConstruction`                   | `false`                                                                      | Instant shell builds in creative                                             |
+| `warnPlayerInsteadOfKilling`                       | `false`                                                                      | Don't kill low-HP players on fingerstick                                     |
+| `fingerstickDamage` / `hardcoreFingerstickDamage`  | `20` / `40`                                                                  | HP consumed per shell                                                        |
+| `shellConstructorCapacity`                         | `256000`                                                                     | FE needed for a full shell                                                   |
+| `shellStorageCapacity` / `shellStorageConsumption` | `320` / `16`                                                                 | FE buffer + per-tick drain keeping a shell alive                             |
+| `shellStorageAcceptsRedstone`                      | `true`                                                                       | Accept raw redstone as power                                                 |
+| `shellStorageMaxUnpoweredLifespan`                 | `20`                                                                         | Ticks a storage keeps its shell alive without power                          |
+| `energyMap`                                        | chicken=2, pig=16, player=20, wolf=22, villager=25, creeper=80, enderman=160 | FE/tick per entity on a treadmill                                            |
+| `syncPriority`                                     | `NATURAL`                                                                    | Which shell to pick on death. Values: `NATURAL`, `NEAREST`, or any dye color |
+| `wrench`                                           | `minecraft:stick`                                                            | Item that cycles a container's comparator output type                        |
 
-### `/neosync select [<targets>]`
+---
 
-Opens the shell radial menu wherever the player is standing, with no shell storage needed, and lets them sync straight into any finished shell. With no argument it targets the sender. Players with no finished shell are skipped with a message. Returns the number of menus opened.
+# Commands
 
-Standing in an empty shell storage still works the normal way: the body stays in the storage with everything it was carrying, and the player wakes up in the shell they picked.
+All commands are listed under:
 
-Away from a shell storage there is no container to leave the body in, so the player is killed and moved into the shell they picked once they respawn. The death is an ordinary one, which means grave mods keep the items and xp, and a normal death drop happens when there is no grave mod. A player who is already dead can pick a shell too, from the death screen: nothing happens until they respawn, and then they arrive in that shell instead of at their spawn point. This is what makes a single use anchor cover exactly one death.
+`/neosync`
 
-### `/neosync anchor set <targets> <dimension> <x y z> [<temporary>]`
+Most commands require gamemaster permission.
 
-Gives each target a respawn anchor at the given spot. An anchor behaves like a shell in the radial menu, but there is no block involved: syncing to it creates a fresh clone with full health and an empty inventory at those coordinates. Setting a second anchor at the same spot in the same dimension replaces the first.
+`anchor` and `ghostshells` are also available to the host in single player.
 
-Pass `true` for `temporary` to make it single use. The anchor is removed the instant the player syncs into it, so it covers exactly one death. Omit the argument (or pass `false`) for a permanent anchor. Returns the number of players given an anchor.
+---
 
-### `/neosync anchor ensure <targets> <dimension> <x y z>`
+## `/neosync select [<targets>]`
 
-Same as `set ... true`, but only acts on players who currently have nothing to sync into, meaning no finished shell and no existing anchor. Players who still have somewhere to go are left alone. It is safe to run repeatedly, so it works well on a login hook or a timer to keep players from being stranded. Returns the number of players actually given an anchor, which is `0` when everyone already had a shell.
+Opens the Shell radial menu wherever the player is standing, with no Shell Storage required, and allows them to sync directly into any finished Shell.
 
-### `/neosync anchor list <targets>`
+With no argument, it targets the command sender.
 
-Lists each target's anchors, marking the single-use ones. Returns the total anchor count across all targets.
+Players with no finished Shell are skipped with a message.
 
-### `/neosync anchor remove <targets> [<dimension> <x y z>]`
+The command returns the number of menus opened.
 
-Removes anchors from the targets. With coordinates, only the anchor at that spot goes; without them, all of the target's anchors go. Returns the number removed.
+### When standing in a Shell Storage
 
-### `/neosync ghostshells <sync|remove|repair> <targets> [<x y z>]`
+Standing in an empty Shell Storage still works normally.
 
-Cleans up shells that show in a player's menu but no longer exist in the world, usually after a shell storage was destroyed or a chunk was rolled back. Anchors are never touched. Give coordinates to act on one shell, or leave them off to sweep every shell the player has.
+The body stays inside the storage with everything it was carrying, and the player wakes up inside the Shell they selected.
 
-- `sync` repairs what it can and deletes the rest.
-- `repair` repairs what it can and reports the rest without deleting anything.
-- `remove` deletes ghost shells without attempting a repair.
+### When away from a Shell Storage
 
-Note that the sweep without coordinates also marks every one of that player's shells as fully built, so any shell still under construction finishes immediately.
+Away from a Shell Storage there is no container to leave the original body in.
 
-## Mod integration
+The player is therefore killed and moved into the selected Shell once they respawn.
 
-- **[JEI](https://www.curseforge.com/minecraft/mc-mods/jei)**. info descriptions on each sync block explaining the flow, plus a *Treadmill Energy Sources* category listing every entity the treadmill accepts and its FE/tick output (driven by `energyMap`).
-- **[Jade](https://www.curseforge.com/minecraft/mc-mods/jade)**. crosshair tooltip for shell constructor / storage / treadmill showing owner, build progress, color, powered state, and energy level.
+This death follows the ordinary death system, meaning grave mods can keep the player's items and XP.
 
-Both are optional; NeoSync runs fine without them.
+Without a grave mod, normal death drops occur.
 
-### Grave / death-handling mods (Simple Tombs, etc.)
+A player who is already dead can also select a Shell from the death screen.
 
-NeoSync coexists with grave mods, but only the parts that hook `LivingDropsEvent` work in the cross-shell death path:
+Nothing happens until they respawn, after which they arrive inside the selected Shell instead of their normal spawn point.
 
-- **Original-body death** uses the vanilla death flow. `LivingDeathEvent`, `LivingDropsEvent`, and `PlayerRespawnEvent` all fire normally, so grave mods behave exactly as they would without NeoSync.
-- **Shell death with another shell available** is intercepted by NeoSync: vanilla `die()` is cancelled and the player auto-syncs into the next shell. `LivingDropsEvent` still fires (so the grave is placed at the dead shell's position with its full inventory), but `LivingDeathEvent` and `PlayerRespawnEvent` do **not** fire.
-- **Syncing away from a shell storage** is a plain vanilla death followed by a move on respawn, so all three events fire and grave mods behave exactly as they would on any other death.
+This is what allows a single-use anchor to cover exactly one death.
+
+---
+
+## `/neosync anchor set <targets> <dimension> <x y z> [<temporary>]`
+
+Gives each target a respawn anchor at the specified location.
+
+An anchor behaves like a Shell inside the radial menu, but there is no physical block involved.
+
+Syncing to an anchor creates a fresh clone with:
+
+* Full health
+* Empty inventory
+* The specified coordinates
+* The specified dimension
+
+Setting another anchor at exactly the same location and dimension replaces the existing one.
+
+Pass:
+
+`true`
+
+for `temporary` to make the anchor single-use.
+
+The anchor is removed immediately when the player syncs into it, meaning it covers exactly one death.
+
+Omit the argument or pass:
+
+`false`
+
+to create a permanent anchor.
+
+The command returns the number of players given an anchor.
+
+---
+
+## `/neosync anchor ensure <targets> <dimension> <x y z>`
+
+Works similarly to:
+
+`anchor set ... true`
+
+but only affects players who currently have nothing available to sync into.
+
+That means they must have:
+
+* No finished Shell
+* No existing anchor
+
+Players who still have somewhere to go are left unchanged.
+
+The command is safe to run repeatedly, making it suitable for login hooks or timers that prevent players from becoming stranded.
+
+It returns the number of players actually given an anchor.
+
+If everyone already has a Shell or anchor, it returns:
+
+`0`
+
+---
+
+## `/neosync anchor list <targets>`
+
+Lists each target's anchors.
+
+Single-use anchors are identified in the output.
+
+The command returns the total number of anchors across all selected targets.
+
+---
+
+## `/neosync anchor remove <targets> [<dimension> <x y z>]`
+
+Removes anchors from the selected players.
+
+When coordinates are supplied, only the anchor at that exact location is removed.
+
+Without coordinates, every anchor belonging to the selected target is removed.
+
+The command returns the number of anchors removed.
+
+---
+
+## `/neosync ghostshells <sync|remove|repair> <targets> [<x y z>]`
+
+Cleans up Shells that appear inside a player's radial menu but no longer exist in the world.
+
+This can happen when:
+
+* A Shell Storage was destroyed
+* A chunk was rolled back
+* World data changed unexpectedly
+* A Shell entity became disconnected from its storage data
+
+Anchors are never affected by this command.
+
+Provide coordinates to operate on one Shell, or omit them to scan every Shell belonging to the player.
+
+### Modes
+
+#### `sync`
+
+Attempts to repair broken Shells and removes anything that cannot be repaired.
+
+#### `repair`
+
+Attempts to repair broken Shells and reports anything that cannot be repaired without deleting it.
+
+#### `remove`
+
+Deletes Ghost Shell entries without attempting a repair.
+
+> **Note:** Running a sweep without coordinates also marks all of that player's Shells as fully built. Any Shell currently under construction will finish immediately.
+
+---
+
+# Mod integration
+
+## JEI
+
+[JEI](https://www.curseforge.com/minecraft/mc-mods/jei)
+
+Adds informational descriptions to NeoSync blocks explaining how the Shell system works.
+
+It also provides a **Treadmill Energy Sources** category listing every supported entity and its FE/tick output.
+
+This information is driven by the configured `energyMap`.
+
+---
+
+## Jade
+
+[Jade](https://www.curseforge.com/minecraft/mc-mods/jade)
+
+Provides crosshair information for:
+
+* Shell Constructors
+* Shell Storages
+* Treadmills
+
+Information can include:
+
+* Owner
+* Build progress
+* Shell color
+* Powered state
+* Energy level
+
+JEI and Jade are both optional.
+
+NeoSync works without them.
+
+---
+
+# Grave / death-handling mods
+
+NeoSync can coexist with grave mods such as **Simple Tombs**, but there are differences depending on the death path.
+
+Only integrations that hook into `LivingDropsEvent` work completely with the cross-Shell death path.
+
+## Original-body death
+
+Original-body death follows the vanilla death flow.
+
+The following events fire normally:
+
+* `LivingDeathEvent`
+* `LivingDropsEvent`
+* `PlayerRespawnEvent`
+
+Grave mods therefore behave as they normally would without NeoSync.
+
+---
+
+## Shell death with another Shell available
+
+When a Shell dies and another valid Shell is available, NeoSync intercepts the death.
+
+Vanilla `die()` is cancelled and the player automatically syncs into the next Shell.
+
+`LivingDropsEvent` still fires, allowing grave mods to create a grave at the dead Shell's location containing its inventory.
+
+However:
+
+* `LivingDeathEvent` does **not** fire
+* `PlayerRespawnEvent` does **not** fire
+
+---
+
+## Syncing away from a Shell Storage
+
+Syncing while away from a Shell Storage performs a normal vanilla death followed by movement into the chosen Shell after respawning.
+
+All three standard death events fire.
+
+Grave mods therefore behave normally for this death path.
+
+---
+
+# Simple Tombs
 
 For Simple Tombs specifically:
 
-- Graves are placed correctly at the dead shell's location and hold its full inventory. walk to the grave to retrieve.
-- The `KEEPPARTS` option (hotbar/armor soulbinding) does **not** carry across a cross-shell auto-sync; those items go into the grave with everything else. If you want consistent behavior across both death paths, set `KEEPPARTS=NONE` in the Simple Tombs config and rely on the grave for everything.
-- The grave key (if `KEYGIVEN=true`) lands in the grave alongside the rest of the loot.
+* Graves are placed at the dead Shell's location.
+* Graves contain the Shell's full inventory.
+* Walk back to the grave to retrieve the items.
+* The `KEEPPARTS` option does **not** carry soulbound hotbar or armor items across a cross-Shell automatic sync.
+* Those items instead enter the grave with the rest of the inventory.
 
-If you need to request specific integration with other mods or graves feel free to reach out.
+For consistent behaviour across the different NeoSync death paths, consider using:
 
-## License
+`KEEPPARTS=NONE`
 
-MIT. Code by [Kir_Antipov](https://github.com/Kir-Antipov); NeoForge 1.21.1 port by BreakinBlocks. Original concept by [iChun](https://github.com/iChun). See [LICENSE](LICENSE) for details.
+and rely on the grave for the complete inventory.
+
+If:
+
+`KEYGIVEN=true`
+
+the grave key is placed inside the grave alongside the other dropped items.
+
+If specific compatibility with another grave or death-handling mod is needed, please open an issue on the community port repository.
+
+---
+
+# Minecraft 26.2 Community Port
+
+This version updates NeoSync for **Minecraft 26.2 and NeoForge 26.2**.
+
+The port includes migration work covering areas such as:
+
+* Minecraft 26.2 registry changes
+* NeoForge 26.2 API changes
+* Block registration
+* Colored block families
+* Entity systems
+* Entity IDs
+* Player rendering
+* Shell rendering
+* Block entity rendering
+* Camera handling
+* Shell selection GUI
+* Networking
+* Data generation
+* Recipe APIs
+* Forge Energy support
+* Server compatibility
+* Multiplayer compatibility
+* Java 25
+
+The goal is to preserve NeoSync's existing gameplay and functionality while making it work correctly with the Minecraft 26.2 / NeoForge 26.2 API changes.
+
+---
+
+# Minecraft 26.3 Development
+
+Work has started on a **Minecraft 26.3 / NeoForge 26.3 version of NeoSync**.
+
+The 26.3 port will migrate the existing 26.2 Community Port to the newer Minecraft and NeoForge APIs.
+
+Development areas include:
+
+* Registry/API migration
+* Rendering changes
+* Entity API changes
+* Networking changes
+* Recipe and data generation changes
+* Shell rendering
+* Player syncing
+* Camera behaviour
+* Client UI
+* Forge Energy compatibility
+* Optional mod integrations
+* Dedicated server testing
+* Multiplayer testing
+
+The **26.3 version is currently under development** and should not be considered a stable release until testing is complete.
+
+The existing **Minecraft 26.2 version remains the current Community Port release**.
+
+---
+
+# Community Port Notice
+
+This project is an **unofficial community-maintained port**.
+
+It is not an official release from:
+
+* iChun
+* Kir_Antipov
+* BreakinBlocks
+* Saereth
+* The upstream NeoSync developers
+
+Issues specific to the **Minecraft 26.2 or Minecraft 26.3 Community Port** should be reported to this project's issue tracker rather than upstream.
+
+If an issue can also be reproduced on an official upstream NeoSync version, it may also be appropriate to report it upstream.
+
+---
+
+# Credits
+
+**Original Sync concept and mod:**
+[iChun](https://github.com/iChun)
+
+**Fabric reimplementation:**
+[Kir_Antipov](https://github.com/Kir-Antipov/sync-fabric)
+
+**NeoForge 1.21.1 port:**
+BreakinBlocks
+
+**NeoSync upstream development:**
+NeoSync contributors / Saereth
+
+**Minecraft 26.2 Community Port:**
+GamingProVideos
+
+**Minecraft 26.3 Port Development:**
+GamingProVideos
+
+A huge thank you to everyone who created, maintained, reimplemented, and ported Sync and NeoSync.
+
+---
+
+# License
+
+NeoSync is distributed under the **MIT License**.
+
+Original code by [Kir_Antipov](https://github.com/Kir-Antipov).
+
+NeoForge porting work by BreakinBlocks.
+
+Minecraft 26.2 and ongoing 26.3 community port work by GamingProVideos.
+
+Original Sync concept and mod by [iChun](https://github.com/iChun).
+
+The original copyright notices and license information are retained.
+
+See [LICENSE](LICENSE) for complete license information.
+
+---
+
+> **One mind. Many bodies.**
+
+**Minecraft 26.2 available now — Minecraft 26.3 port in development.**
