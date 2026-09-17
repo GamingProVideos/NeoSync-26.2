@@ -3,12 +3,10 @@
   "criteria": {
     "placed_treadmill": {
       "conditions": {
-        "location": [
-          {
-            "block": "neosync:treadmill",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "neosync:treadmill"
+        }
       },
       "trigger": "minecraft:placed_block"
     }

@@ -1,6 +1,5 @@
 package com.breakinblocks.neosync.common.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -21,18 +20,12 @@ import com.breakinblocks.neosync.common.block.entity.ShellStorageBlockEntity;
 
 @SuppressWarnings("deprecation")
 public class ShellStorageBlock extends AbstractShellContainerBlock {
-    public static final MapCodec<ShellStorageBlock> CODEC = simpleCodec(ShellStorageBlock::new);
     public static final BooleanProperty ENABLED = BlockStateProperties.ENABLED;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public ShellStorageBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(OPEN, false).setValue(ENABLED, false).setValue(POWERED, false));
-    }
-
-    @Override
-    protected MapCodec<? extends ShellStorageBlock> codec() {
-        return CODEC;
     }
 
     public static boolean isEnabled(BlockState state) {

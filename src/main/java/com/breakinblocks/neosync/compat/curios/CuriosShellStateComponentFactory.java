@@ -6,6 +6,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.item.ItemStack;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
@@ -89,7 +90,7 @@ public class CuriosShellStateComponentFactory implements ShellStateComponentFact
             }
 
             for (ItemStack stack : missing) {
-                this.player.getInventory().placeItemBackInInventory(stack);
+                this.player.getInventory().placeItemBackInInventory(stack, Prediction.SERVER_ONLY);
             }
         }
 

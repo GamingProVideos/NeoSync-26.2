@@ -1,7 +1,6 @@
     package com.breakinblocks.neosync.common.block;
 
-    import com.mojang.serialization.MapCodec;
-    import net.minecraft.core.BlockPos;
+        import net.minecraft.core.BlockPos;
     import net.minecraft.core.Direction;
     import net.minecraft.core.particles.ParticleTypes;
     import net.minecraft.util.RandomSource;
@@ -33,13 +32,7 @@
 
     @SuppressWarnings("deprecation")
     public class TreadmillBlock extends HorizontalDirectionalBlock implements EntityBlock {
-        public static final MapCodec<TreadmillBlock> CODEC = simpleCodec(TreadmillBlock::new);
         public static final EnumProperty<Part> PART = EnumProperty.create("treadmill_part", Part.class);
-
-        @Override
-        protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
-            return CODEC;
-        }
 
 
         private static final VoxelShape NORTH_SHAPE_BACK;

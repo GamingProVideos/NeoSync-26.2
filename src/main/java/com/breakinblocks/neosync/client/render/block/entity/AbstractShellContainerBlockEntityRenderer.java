@@ -1,7 +1,6 @@
 package com.breakinblocks.neosync.client.render.block.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -17,7 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Quaternionf;
+import org.joml.Matrix4f;
 import com.breakinblocks.neosync.NeoSync;
 import com.breakinblocks.neosync.api.shell.ShellState;
 import com.breakinblocks.neosync.client.model.ShellContainerModel;
@@ -81,7 +80,7 @@ public abstract class AbstractShellContainerBlockEntityRenderer<T extends Abstra
     public void submit(ShellContainerRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         poseStack.pushPose();
         applyMachineTransform(poseStack, state.facing);
-        submitNodeCollector.submitModel(this.getModel(), state, poseStack, state.texture, state.lightCoords, OverlayTexture.NO_OVERLAY, 0, state.breakProgress);
+        submitNodeCollector.submitModel(this.getModel(), state, poseStack, state.texture, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         this.submitExtras(state, poseStack, submitNodeCollector);
         poseStack.popPose();
 
@@ -100,7 +99,7 @@ public abstract class AbstractShellContainerBlockEntityRenderer<T extends Abstra
         EntityRenderDispatcher dispatcher = Minecraft.getInstance().getEntityRenderDispatcher();
         poseStack.pushPose();
         poseStack.translate(0.5, 0.0, 0.5);
-        poseStack.mulPose(new Quaternionf().rotationY((float)Math.toRadians(facingYaw(state.facing))));
+        poseStack.mulPose(new Matrix4f().rotationY((float)Math.toRadians(facingYaw(state.facing))));
         dispatcher.submit(state.shellEntityState, camera, 0.0, 0.0, 0.0, poseStack, submitNodeCollector);
         poseStack.popPose();
     }
@@ -108,11 +107,11 @@ public abstract class AbstractShellContainerBlockEntityRenderer<T extends Abstra
     private void submitVoxelShell(ShellContainerRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
         poseStack.pushPose();
         poseStack.translate(0.5, 0.0, 0.5);
-        poseStack.mulPose(Axis.YP.rotationDegrees(facingYaw(state.facing) + 180F));
+        poseStack.mulPose(new Matrix4f().rotationY((float)Math.toRadians(facingYaw(state.facing) + 180F)));
         poseStack.scale(-1F, -1F, 1F);
         poseStack.translate(0.0, -1.501, 0.0);
         submitNodeCollector.submitModel(this.voxelModel, state, poseStack, VOXEL_TEXTURE,
-                state.lightCoords, OverlayTexture.NO_OVERLAY, 0, state.breakProgress);
+                state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
     }
 
@@ -143,7 +142,7 @@ public abstract class AbstractShellContainerBlockEntityRenderer<T extends Abstra
     public static void applyMachineTransform(PoseStack poseStack, Direction facing) {
         poseStack.translate(0.5F, 0.75F, 0.5F);
         poseStack.scale(-0.5F, -0.5F, 0.5F);
-        poseStack.mulPose(Axis.YP.rotationDegrees(facing.toYRot()));
+        poseStack.mulPose(new Matrix4f().rotationY((float)Math.toRadians(facing.toYRot())));
     }
 
     @Nullable

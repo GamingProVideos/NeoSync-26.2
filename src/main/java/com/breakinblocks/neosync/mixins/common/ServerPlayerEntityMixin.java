@@ -5,6 +5,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.logging.LogUtils;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.UUIDUtil;
@@ -600,7 +601,7 @@ abstract class ServerPlayerEntityMixin extends Player implements ServerShell, Ki
         }
 
         serverPlayer.setDeltaMovement(Vec3.ZERO);
-        serverPlayer.hurtMarked = true;
+        serverPlayer.connection.send(new ClientboundSetEntityMotionPacket(serverPlayer));
         serverPlayer.fallDistance = 0F;
         return true;
     }

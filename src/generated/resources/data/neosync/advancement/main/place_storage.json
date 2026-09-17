@@ -3,34 +3,28 @@
   "criteria": {
     "placed_manual_storage": {
       "conditions": {
-        "location": [
-          {
-            "block": "neosync:manual_shell_storage",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "neosync:manual_shell_storage"
+        }
       },
       "trigger": "minecraft:placed_block"
     },
     "placed_storage": {
       "conditions": {
-        "location": [
-          {
-            "block": "neosync:shell_storage",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "neosync:shell_storage"
+        }
       },
       "trigger": "minecraft:placed_block"
     },
     "placed_zero_point_storage": {
       "conditions": {
-        "location": [
-          {
-            "block": "neosync:zero_point_shell_storage",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "neosync:zero_point_shell_storage"
+        }
       },
       "trigger": "minecraft:placed_block"
     }

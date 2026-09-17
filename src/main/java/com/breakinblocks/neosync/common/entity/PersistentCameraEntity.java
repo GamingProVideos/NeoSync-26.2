@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.chat.ChatAbilities;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.player.ItemActivation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Input;
 import net.minecraft.world.phys.Vec3;
@@ -34,7 +35,7 @@ public class PersistentCameraEntity extends LocalPlayer {
 
     private PersistentCameraEntity(Minecraft client, ClientLevel world, LocalPlayer player) {
         super(client, world, player.connection, player.getStats(), player.getRecipeBook(),
-                Input.EMPTY, false, ChatAbilities.NO_RESTRICTIONS);
+                Input.EMPTY, false, ChatAbilities.NO_RESTRICTIONS, new ItemActivation());
         this.snapTo(player.getX(), player.getY(), player.getZ(), player.getYRot(), player.getXRot());
         this.setYRot(player.getYRot());
         this.setXRot(player.getXRot());

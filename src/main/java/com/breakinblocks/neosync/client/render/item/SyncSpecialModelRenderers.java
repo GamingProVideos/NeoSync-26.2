@@ -90,7 +90,7 @@ public final class SyncSpecialModelRenderers {
         public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, boolean hasFoil, int outlineColor) {
             poseStack.pushPose();
             AbstractShellContainerBlockEntityRenderer.applyMachineTransform(poseStack, Direction.SOUTH);
-            submitNodeCollector.submitModel(this.model, this.state, poseStack, this.texture, lightCoords, overlayCoords, outlineColor, null);
+            submitNodeCollector.submitModel(this.model, this.state, poseStack, this.texture, lightCoords, overlayCoords, outlineColor);
             poseStack.popPose();
         }
 

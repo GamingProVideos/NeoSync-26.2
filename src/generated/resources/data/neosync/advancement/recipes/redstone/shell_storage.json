@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "neosync:shell_storage"
+        "recipes": "neosync:shell_storage"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

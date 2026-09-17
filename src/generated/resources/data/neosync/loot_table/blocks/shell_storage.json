@@ -3,27 +3,23 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "block": "neosync:shell_storage",
-              "condition": "minecraft:block_state_property",
-              "properties": {
-                "half": "lower"
-              }
+          "name": "neosync:shell_storage",
+          "condition": {
+            "type": "minecraft:match_block",
+            "blocks": "neosync:shell_storage",
+            "state": {
+              "half": "lower"
             }
-          ],
-          "name": "neosync:shell_storage"
+          }
         }
       ],
-      "rolls": 1.0
+      "rolls": 1.0,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      }
     }
   ],
   "random_sequence": "neosync:blocks/shell_storage"

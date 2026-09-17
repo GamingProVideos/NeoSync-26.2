@@ -80,7 +80,7 @@ public class PersistentCameraEntityGoal {
         double horizontalDistance = Math.sqrt(dX * dX + dZ * dZ);
         if (horizontalDistance > maxDistance) {
             double factor = maxDistance / horizontalDistance;
-            target = new BlockPos(start.offset((int) (dX * factor), 0, (int) (dZ * factor)));
+            target = start.offset((int) (dX * factor), 0, (int) (dZ * factor));
         }
 
         float yaw = startFacing.toYRot();
@@ -104,7 +104,7 @@ public class PersistentCameraEntityGoal {
         double horizontalDistance = Math.sqrt(dX * dX + dZ * dZ);
         if (horizontalDistance > maxDistance) {
             double factor = maxDistance / horizontalDistance;
-            target = new BlockPos(start.offset((int) (dX * factor), 0, (int) (dZ * factor)));
+            target = start.offset((int) (dX * factor), 0, (int) (dZ * factor));
         }
 
         float yaw = startFacing.toYRot();
@@ -134,7 +134,7 @@ public class PersistentCameraEntityGoal {
         double horizontalDistance = Math.sqrt(dX * dX + dZ * dZ);
         if (horizontalDistance > maxDistance) {
             double factor = maxDistance / horizontalDistance;
-            BlockPos centerPointPos = new BlockPos(target.offset((int) (dX * factor), 0, (int) (dZ * factor))).atY((int)centerPoint.y);
+            BlockPos centerPointPos = target.offset((int) (dX * factor), 0, (int) (dZ * factor)).atY((int)centerPoint.y);
             tpGoal = PersistentCameraEntityGoal.tp(centerPointPos, startFacing.toYRot(), 90);
         }
 

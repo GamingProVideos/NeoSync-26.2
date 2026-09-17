@@ -78,6 +78,6 @@ public class ShellStorageBlockEntityRenderer extends AbstractShellContainerBlock
         }
         int color = 0xFF000000 | (state.ledColor.getTextureDiffuseColor() & 0x00FFFFFF);
         submitNodeCollector.submitModel(this.ledModel, Unit.INSTANCE, poseStack, this.ledModel.renderType(state.texture),
-                state.lightCoords, OverlayTexture.NO_OVERLAY, color, null, 0, state.breakProgress);
+                state.lightCoords, OverlayTexture.NO_OVERLAY, color, null, 0);
     }
 }

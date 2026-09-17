@@ -8,7 +8,7 @@ version="${version}"
 displayName="NeoSync"
 authors="BreakinBlocks"
 description='''One mind. Many bodies.'''
-logoFile="assets/neosync/icon.png"
+iconFile="assets/neosync/icon.png"
 
 [[accessTransformers]]
 file="META-INF/accesstransformer.cfg"
@@ -19,14 +19,14 @@ config="neosync.mixins.json"
 [[dependencies.neosync]]
 modId="neoforge"
 type="required"
-versionRange="[26.2,27)"
+versionRange="[26.3,27)"
 ordering="NONE"
 side="BOTH"
 
 [[dependencies.neosync]]
 modId="minecraft"
 type="required"
-versionRange="[26.2,27)"
+versionRange="[26.3,27)"
 ordering="NONE"
 side="BOTH"
 

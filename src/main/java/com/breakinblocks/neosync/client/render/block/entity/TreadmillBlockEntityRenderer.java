@@ -44,7 +44,7 @@ public class TreadmillBlockEntityRenderer extends DoubleBlockEntityRenderer<Trea
     public void submit(TreadmillRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
         poseStack.pushPose();
         AbstractShellContainerBlockEntityRenderer.applyMachineTransform(poseStack, state.facing);
-        submitNodeCollector.submitModel(this.model, state, poseStack, TEXTURE, state.lightCoords, OverlayTexture.NO_OVERLAY, 0, state.breakProgress);
+        submitNodeCollector.submitModel(this.model, state, poseStack, TEXTURE, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
     }
 }

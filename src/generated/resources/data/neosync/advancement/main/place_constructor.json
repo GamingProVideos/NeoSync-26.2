@@ -3,23 +3,19 @@
   "criteria": {
     "placed_constructor": {
       "conditions": {
-        "location": [
-          {
-            "block": "neosync:shell_constructor",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "neosync:shell_constructor"
+        }
       },
       "trigger": "minecraft:placed_block"
     },
     "placed_zero_point_constructor": {
       "conditions": {
-        "location": [
-          {
-            "block": "neosync:zero_point_shell_constructor",
-            "condition": "minecraft:block_state_property"
-          }
-        ]
+        "location": {
+          "type": "minecraft:match_block",
+          "blocks": "neosync:zero_point_shell_constructor"
+        }
       },
       "trigger": "minecraft:placed_block"
     }

@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'idea'
     id 'net.neoforged.moddev' version '2.0.147'
     id 'me.modmuss50.mod-publish-plugin' version '1.1.0'
 }
@@ -18,6 +19,11 @@ java {
 }
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
+
+// 26.3 rewrote the vanilla datagen APIs. The previous generator sources are preserved
+// under src/legacyDatagen/java and are intentionally not part of the runtime source set.
+// The generated recipes, advancements, loot tables, tags, language and damage type are
+// already committed under src/generated/resources and are included in the jar.
 
 repositories {
     mavenLocal()
@@ -92,8 +98,10 @@ dependencies {
     compileOnly "maven.modrinth:jade:${project.jade_version}"
     localRuntime "maven.modrinth:jade:${project.jade_version}"
 
+    // Curios does not yet publish a 26.3 build (as of 2026-09-17).
+    // Compile against the latest API so the optional integration remains source-checked,
+    // but do not load the incompatible 26.2 implementation in the 26.3 dev runtime.
     compileOnly "top.theillusivec4.curios:curios-neoforge:${project.curios_version}:api"
-    localRuntime "top.theillusivec4.curios:curios-neoforge:${project.curios_version}"
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -144,6 +152,15 @@ publishing {
             }
         }
     }
+}
+
+// Regenerate ModDevGradle's IntelliJ/client launch argument files after a clean,
+// branch switch, Gradle refresh, or JDK change. The generated client run uses
+// build/moddev/clientRunVmArgs.txt and clientRunProgramArgs.txt.
+tasks.register('setupDevRuns') {
+    group = 'neoforge runs'
+    description = 'Regenerates NeoForge IDE metadata and client run argument files.'
+    dependsOn 'neoForgeIdeSync', 'prepareClientRun'
 }
 
 // Mod publishing to CurseForge and Modrinth (GitHub releases handled by CI)
